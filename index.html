@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>حاسبة المعدل الجامعي - إصدار احترافي</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="page-container">
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1 class="hero-title">حاسبة المعدل الجامعي</h1>
+                 <h6 class="hero1-title">جامعة القدس المفتوحة</h6>
+                <p class="hero-subtitle">احسب معدلك الفصلي والتراكمي بدقة واحترافية</p>
+            </div>
+            <div class="hero-image">
+                <img src="images/hero-background.png" alt="Hero Background" class="hero-img">
+            </div>
+        </section>
+
+        <!-- Main Container -->
+        <div class="container">
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">📊</div>
+                    <h3>معدلك الحالي</h3>
+                    <input type="number" id="currentGPA" placeholder="أدخل معدلك" value="" step="0.01" class="stat-input">
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">⏱️</div>
+                    <h3>الساعات المقطوعة</h3>
+                    <input type="number" id="completedHours" placeholder="أدخل الساعات" value="" class="stat-input">
+                </div>
+                <div class="stat-card result-card">
+                    <div class="stat-icon">🎯</div>
+                    <h3>المعدل الجديد</h3>
+                    <p id="newGPA" class="result-number">0.00</p>
+                    <p id="gpaIncrease" class="result-increase">+0.00</p>
+                </div>
+            </div>
+
+            <!-- Courses Section -->
+            <section class="courses-section">
+                <div class="section-header">
+                    <h2>مواد الفصل الحالي</h2>
+                    <p class="section-subtitle">أضف مواد الفصل واحسب معدلك</p>
+                </div>
+
+                <!-- Add Course Controls -->
+                <div class="add-course-controls">
+                    <select id="courseTypeSelect" class="course-type-select">
+                        <option value="">اختر نوع المادة</option>
+                        <option value="practical">مادة الها عملي</option>
+                        <option value="activity">مادة الها نشاط</option>
+                        <option value="noPractical"> مادة ما الها نصفي والها عملي</option>
+                    </select>
+                    <button id="addCourseBtn" class="btn-primary">+ إضافة مادة</button>
+                </div>
+
+                <!-- Courses List -->
+                <div id="coursesList" class="courses-list"></div>
+            </section>
+
+            <!-- Results Section -->
+            <section class="results-section">
+                <h2>النتائج النهائية</h2>
+                <div class="results-grid">
+                    <div class="result-box">
+                        <h3>معدل هذا الفصل</h3>
+                        <p id="semesterGPA" class="big-result">0.00</p>
+                    </div>
+                    <div class="result-box">
+                        <h3>المعدل التراكمي الجديد</h3>
+                        <p id="cumulativeGPA" class="big-result">0.00</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <p> عبير سميح صرصور© 2026 حاسبة المعدل الجامعي | تم تطويره بعناية</p>
+        </footer>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
