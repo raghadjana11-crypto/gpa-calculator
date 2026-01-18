@@ -36,7 +36,7 @@ function addCourse() {
     const courseType = courseTypeSelect.value;
     
     if (!courseType) {
-        alert('اختر نوع المادة أولاً!');
+        alert('اختري نوع المادة أولاً!');
         return;
     }
     
@@ -48,6 +48,7 @@ function addCourse() {
         hours: 3,
         mid: 0,
         practical: 0,
+        courseGrade: 0,
         final: 0,
         activity: 0
     };
@@ -73,25 +74,30 @@ function renderCourses() {
         const courseCard = document.createElement('div');
         courseCard.className = 'course-card';
         
-        let inputsHTML = '<h4><input type="text" placeholder="اسم المادة" value="' + course.name + '" onchange="updateCourseName(' + course.id + ', this.value)"></h4>';
+        let inputsHTML = '<h4><input type="text" placeholder=" اسم المادة(اختياري)" value="' + course.name + '" onchange="updateCourseName(' + course.id + ', this.value)"></h4>';
         inputsHTML += '<div class="course-inputs"><div><label>الساعات</label><input type="number" min="1" max="6" value="' + course.hours + '" onchange="updateCourseHours(' + course.id + ', this.value)"></div>';
         
         if (course.type === 'practical') {
-            inputsHTML += '<div><label>النصفي (35)</label><input type="number" min="0" max="100" value="' + course.mid + '" onchange="updateCourseMark(' + course.id + ', \'mid\', this.value)"></div>';
-            inputsHTML += '<div><label>العملي (30)</label><input type="number" min="0" max="100" value="' + course.practical + '" onchange="updateCourseMark(' + course.id + ', \'practical\', this.value)"></div>';
-            inputsHTML += '<div><label>النهائي (35)</label><input type="number" min="0" max="100" value="' + course.final + '" onchange="updateCourseMark(' + course.id + ', \'final\', this.value)"></div>';
+            inputsHTML += '<div><label>النصفي (35)</label><input type="text" placeholder="ادخل العلامة من 100" input type="number" min="0" max="100" value="' + course.mid + '" onchange="updateCourseMark(' + course.id + ', \'mid\', this.value)"></div>';
+            inputsHTML += '<div><label>العملي (30)</label><input type="text" placeholder="ادخل العلامة من 100"input type="number" min="0" max="100" value="' + course.practical + '" onchange="updateCourseMark(' + course.id + ', \'practical\', this.value)"></div>';
+            inputsHTML += '<div><label> علامة المادة</label><input type="text" placeholder="ادخل العلامة من 100"input type="number" min="0" max="100" value="' + course.courseGrade + '" onchange="updateCourseMark(' + course.id + ', \'courseGrade\', this.value)"></div>';
         } else if (course.type === 'activity') {
-            inputsHTML += '<div><label>النصفي (45)</label><input type="number" min="0" max="100" value="' + course.mid + '" onchange="updateCourseMark(' + course.id + ', \'mid\', this.value)"></div>';
-            inputsHTML += '<div><label>النشاط (10)</label><input type="number" min="0" max="100" value="' + course.activity + '" onchange="updateCourseMark(' + course.id + ', \'activity\', this.value)"></div>';
-            inputsHTML += '<div><label>النهائي (45)</label><input type="number" min="0" max="100" value="' + course.final + '" onchange="updateCourseMark(' + course.id + ', \'final\', this.value)"></div>';
+            inputsHTML += '<div><label>النصفي (45)</label><input type="text" placeholder="ادخل العلامة من 100"input type="number" min="0" max="100" value="' + course.mid + '" onchange="updateCourseMark(' + course.id + ', \'mid\', this.value)"></div>';
+            inputsHTML += '<div><label>النشاط (10)</label><input type="text" placeholder="ادخل العلامة من 100"input type="number" min="0" max="100" value="' + course.activity + '" onchange="updateCourseMark(' + course.id + ', \'activity\', this.value)"></div>';
+            inputsHTML += '<div><label>علامة المادة </label><input type="text" placeholder="ادخل العلامة من 100"input type="number" min="0" max="100" value="' + course.courseGrade + '" onchange="updateCourseMark(' + course.id + ', \'courseGrade\', this.value)"></div>';
         } else if (course.type === 'noPractical') {
-            inputsHTML += '<div><label>العملي (65)</label><input type="number" min="0" max="100" value="' + course.practical + '" onchange="updateCourseMark(' + course.id + ', \'practical\', this.value)"></div>';
-            inputsHTML += '<div><label>النهائي (35)</label><input type="number" min="0" max="100" value="' + course.final + '" onchange="updateCourseMark(' + course.id + ', \'final\', this.value)"></div>';
+            inputsHTML += '<div><label>العملي (65)</label><input type="text" placeholder="ادخل العلامة من 100"input type="number" min="0" max="100" value="' + course.practical + '" onchange="updateCourseMark(' + course.id + ', \'practical\', this.value)"></div>';
+            inputsHTML += '<div><label>علامة المادة </label><input type="text" placeholder="ادخل العلامة من 100"input type="number" min="0" max="100" value="' + course.courseGrade+ '" onchange="updateCourseMark(' + course.id + ', \'courseGrade\', this.value)"></div>';
+        }
+            else if (course.type === 'noactivity') {
+            inputsHTML += '<div><label> النصفي (50 )  </label><input type="text" placeholder="ادخل العلامة من 100"input type="number" min="0" max="100" value="' + course.mid + '" onchange="updateCourseMark(' + course.id + ', \'mid\', this.value)"></div>';
+            inputsHTML += '<div><label>النهائي (50)</label><input type="text" placeholder="ادخل العلامة من 100"input type="number" min="0" max="100" value="' + course.courseGrade + '" onchange="updateCourseMark(' + course.id + ', \'courseGrade\', this.value)"></div>';
         }
         
-        const courseGrade = calculateCourseGrade(course);
         
-        inputsHTML += '</div><div class="course-grade"><span>العلامة النهائية: <strong>' + courseGrade.toFixed(2) + '</strong></span><button class="btn-delete" onclick="deleteCourse(' + course.id + ')">حذف</button></div>';
+        const calculatedFinal = calculateFinalGrade(course);
+        
+        inputsHTML += '</div><div class="course-grade"><span>علامة الامتحان النهائي : <strong>' + calculatedFinal.toFixed(2) + '</strong></span><button class="btn-delete" onclick="deleteCourse(' + course.id + ')">حذف</button></div>';
         
         courseCard.innerHTML = inputsHTML;
         coursesList.appendChild(courseCard);
@@ -100,26 +106,64 @@ function renderCourses() {
     updateResults();
 }
 // ============================================
-// دالة حساب علامة المادة الواحدة
+// دالة حساب علامة النهائي
+// ============================================
+
+function calculateFinalGrade(course) {
+    if (course.courseGrade === 0) {
+        return 0;
+    }
+    
+    if (course.type === 'practical') {
+        // النهائي = (علامة المادة - (النصفي×0.35 + العملي×0.30)) / 0.35
+        const midPoints = (course.mid / 100) * 35;
+        const practicalPoints = (course.practical / 100) * 30;
+        const remaining = course.courseGrade - midPoints - practicalPoints;
+        const finalGrade = remaining / 0.35;
+        return Math.min(100, Math.max(0, finalGrade));
+    } else if (course.type === 'activity') {
+        // النهائي = (علامة المادة - (النصفي×0.45 + النشاط×0.10)) / 0.45
+        const midPoints = (course.mid / 100) * 45;
+        const activityPoints = (course.activity / 100) * 10;
+        const remaining = course.courseGrade - midPoints - activityPoints;
+        const finalGrade = remaining / 0.45;
+        return Math.min(100, Math.max(0, finalGrade));
+    } else if (course.type === 'noPractical') {
+        // النهائي = (علامة المادة - (العملي×0.65)) / 0.35
+        const practicalPoints = (course.practical / 100) * 65;
+        const remaining = course.courseGrade - practicalPoints;
+        const finalGrade = remaining / 0.35;
+        return Math.min(100, Math.max(0, finalGrade));
+    }
+
+        else if(course.type === 'noactivity'){
+           // النهائي = (علامة المادة - النصفي *0.50)/ 0.50
+           const midpoints =(course.mid /100)*50;
+           const remaining = (course.courseGrade - midpoints);
+           const finalGrade = remaining /0.50;
+           return Math.min(100,Math.max(0,finalGrade));
+        }
+
+    return 0;
+}
+// ============================================
+// دالة حساب علامة المادة النهائية (من 100)
 // ============================================
 
 function calculateCourseGrade(course) {
     if (course.type === 'practical') {
-        // نصفي (35) + عملي (30) + نهائي (35)
         const midScore = (course.mid / 100) * 35;
         const practicalScore = (course.practical / 100) * 30;
-        const finalScore = (course.final / 100) * 35;
+        const finalScore = (calculateFinalGrade(course) / 100) * 35;
         return midScore + practicalScore + finalScore;
     } else if (course.type === 'activity') {
-        // نصفي (45) + نشاط (10) + نهائي (45)
         const midScore = (course.mid / 100) * 45;
         const activityScore = (course.activity / 100) * 10;
-        const finalScore = (course.final / 100) * 45;
+        const finalScore = (calculateFinalGrade(course) / 100) * 45;
         return midScore + activityScore + finalScore;
     } else if (course.type === 'noPractical') {
-        // عملي (65) + نهائي (35)
         const practicalScore = (course.practical / 100) * 65;
-        const finalScore = (course.final / 100) * 35;
+        const finalScore = (calculateFinalGrade(course) / 100) * 35;
         return practicalScore + finalScore;
     }
     return 0;
