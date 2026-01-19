@@ -36,7 +36,7 @@ function addCourse() {
     const courseType = courseTypeSelect.value;
     
     if (!courseType) {
-        alert('اختري نوع المادة أولاً!');
+        alert('اختر نوع المادة أولاً!');
         return;
     }
     
@@ -44,7 +44,7 @@ function addCourse() {
     const course = {
         id: courseId,
         type: courseType,
-        name: '',
+        name: '' , 
         hours: 3,
         mid: 0,
         practical: 0,
@@ -70,11 +70,11 @@ function renderCourses() {
         return;
     }
     
-    courses.forEach(course => {
+    [...courses].reverse().forEach(course => {
         const courseCard = document.createElement('div');
         courseCard.className = 'course-card';
         
-        let inputsHTML = '<h4><input type="text" placeholder=" اسم المادة(اختياري)" value="' + course.name + '" onchange="updateCourseName(' + course.id + ', this.value)"></h4>';
+        let inputsHTML = '<h4><input type="text" placeholder=" اسم المادة(اختياري)' +(courses.indexOf(course)+1) + '" value="' + course.name  + '" onchange="updateCourseName(' + course.id + ', this.value)"></h4>';
         inputsHTML += '<div class="course-inputs"><div><label>الساعات</label><input type="number" min="1" max="6" value="' + course.hours + '" onchange="updateCourseHours(' + course.id + ', this.value)"></div>';
         
         if (course.type === 'practical') {
